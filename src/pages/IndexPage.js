@@ -3,6 +3,7 @@ import register from 'soya/lib/client/Register';
 import ReduxPage from 'soya/lib/page/ReduxPage';
 import RenderResult from 'soya/lib/page/RenderResult';
 import ReactRenderer from 'soya/lib/page/react/ReactRenderer';
+import IndexPageContent from './IndexPageContent';
 
 class IndexPage extends ReduxPage{
 	static get pageName() {
@@ -14,7 +15,7 @@ class IndexPage extends ReduxPage{
 	}
 
 	get pageContent() {
-		return <div>This is just a placeholder for my Pagecontent !</div>;
+		return IndexPageContent;
 	}
 
 
@@ -23,15 +24,14 @@ class IndexPage extends ReduxPage{
 		const context = this.createContext(store);
 		reactRenderer.head = `<title>Template • TodoMVC</title>`;
 		reactRenderer.body = React.createElement(
-			'h1', 
+			this.pageContent, 
 			{
 				context : {
 					...context,
 					routeArgs,
 					httpRequest
 				}
-			},
-			'This is my very fist page !'
+			}
 		);
 
 		const renderResult = new RenderResult(reactRenderer);
