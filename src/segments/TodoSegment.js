@@ -1,0 +1,64 @@
+import Segment from 'soya/lib/data/redux/Segment';
+import update from 'react-addons-update';
+
+const ID = 'todoSegment';
+
+const INIT_ACTION_TYPE = `${ID}.init`;
+
+const ACTION_CREATOR = {
+	init() {
+		return {
+			type : INIT_ACTION_TYPE
+		}
+	}
+}
+
+const REDUCER = function ( state, action ) {
+	switch ( action.type ) {
+		case INIT_ACTION_TYPE :
+			state = update (
+        state,
+        {
+          $set : {
+            todos: [],
+            filter_iscomplete : 'All'
+          }
+        }
+      );
+      break;
+	}
+}
+
+export default class TodoSegment extends Segment {
+  static id() {
+    return ID;
+  }
+
+  static getServiceDependencies() {
+    return [];
+  }
+
+  static getActionCreator() {
+    return ACTION_CREATOR;
+  }
+
+  static getReducer() {
+    return REDUCER;
+  }
+
+  static generateQueryId(query) {
+  	return query;
+  }
+
+  static queryState(query, queryId, segmentState) {
+    if(segmentState == null || segmentState[queryId] == null) {
+      return QueryResult.notLoaded();
+    }
+
+    return QueryResult.loaded(segmentState[queryId]);
+  }
+
+  static createLoadFromQuery(query, queryId, segmentState, services) {
+    return ACTION_CREATOR.init();
+  }
+}
