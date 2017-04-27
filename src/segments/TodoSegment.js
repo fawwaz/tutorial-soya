@@ -1,16 +1,27 @@
 import Segment from 'soya/lib/data/redux/Segment';
+import Load from 'soya/lib/data/redux/Load';
+import QueryResult from 'soya/lib/data/redux/QueryResult';
 import update from 'react-addons-update';
 
 const ID = 'todoSegment';
 
 const INIT_ACTION_TYPE = `${ID}.init`;
+const ADD_ACTION_TYPE = `${ID}.add`;
 
 const ACTION_CREATOR = {
 	init() {
 		return {
 			type : INIT_ACTION_TYPE
 		}
-	}
+	},
+	add(text) {
+    return {
+      type : ADD_ACTION_TYPE,
+      id : nextTodoId++,
+      text : text,
+      isCompleted : false
+    }
+  }
 }
 
 const REDUCER = function ( state, action ) {
@@ -27,6 +38,7 @@ const REDUCER = function ( state, action ) {
       );
       break;
 	}
+	return state;
 }
 
 export default class TodoSegment extends Segment {
