@@ -8,6 +8,8 @@ const ID = 'todoSegment';
 const INIT_ACTION_TYPE = `${ID}.init`;
 const ADD_ACTION_TYPE = `${ID}.add`;
 
+let nextTodoId = 0;
+
 const ACTION_CREATOR = {
 	init() {
 		return {
@@ -33,6 +35,20 @@ const REDUCER = function ( state, action ) {
           $set : {
             todos: [],
             filter_iscomplete : 'All'
+          }
+        }
+      );
+      break;
+    case ADD_ACTION_TYPE :
+      state = update(
+        state,
+        {
+          todos: {
+            $push : [{
+              id : action.id,
+              text : action.text,
+              isCompleted : action.isCompleted
+            }]
           }
         }
       );
