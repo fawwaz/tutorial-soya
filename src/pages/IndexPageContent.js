@@ -27,7 +27,7 @@ class IndexPageContent extends React.Component {
             type="checkbox"
           />
           <label for="toggle-all">Mark all as complete</label>
-          <TodoWrapper /> 
+          <TodoWrapper context={this.props.context}/> 
 
           <Footer style="footer">
             <span className="todo-count">
