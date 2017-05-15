@@ -19,7 +19,6 @@ class ListElement extends React.Component {
           <label> {this.props.label} </label>
           <button className="destroy" />
         </div>
-        <InputText type={InputText.TYPE.EDIT} />
       </li>
     );
   }
